@@ -5,7 +5,9 @@ module.exports = {
   createUser: {
     body: {
       username: Joi.string().required(),
-      mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/).required()
+      mobileNumber: Joi.string()
+        .regex(/^[1-9][0-9]{9}$/)
+        .required()
     }
   },
 
@@ -13,10 +15,53 @@ module.exports = {
   updateUser: {
     body: {
       username: Joi.string().required(),
-      mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/).required()
+      mobileNumber: Joi.string()
+        .regex(/^[1-9][0-9]{9}$/)
+        .required()
     },
     params: {
-      userId: Joi.string().hex().required()
+      userId: Joi.string()
+        .hex()
+        .required()
+    }
+  },
+
+  // POST /api/pets
+  createPet: {
+    body: {
+      name: Joi.string().required()
+    }
+  },
+
+  // UPDATE /api/pets/:userId
+  updatePet: {
+    body: {
+      name: Joi.string().required()
+    },
+    params: {
+      petId: Joi.string()
+        .hex()
+        .required()
+    }
+  },
+
+  // POST /api/adopt
+  createAdopt: {
+    body: {
+      pet: Joi.string().required(),
+      contact: Joi.string().required()
+    }
+  },
+
+  // UPDATE /api/adopt/:userId
+  updateAdopt: {
+    body: {
+      pet: Joi.string().required()
+    },
+    params: {
+      adoptId: Joi.string()
+        .hex()
+        .required()
     }
   },
 
