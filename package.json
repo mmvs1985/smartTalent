@@ -20,7 +20,11 @@
     "test:watch": "yarn test -- --watch",
     "test:coverage": "cross-env NODE_ENV=test ./node_modules/.bin/istanbul cover _mocha -- --ui bdd --reporter spec --colors server --recursive",
     "test:check-coverage": "yarn test:coverage && istanbul check-coverage",
-    "report-coverage": "coveralls < ./coverage/lcov.info"
+    "report-coverage": "coveralls < ./coverage/lcov.info",
+    "copy-files": "cp -R files/ dist/files/",
+    "copy-package": "cp package.json dist/package.json",
+    "zip": "cd dist && zip bundle.zip -r * .[^.]*",
+    "build": "tsc || true && npm run copy-files && npm run copy-package && npm run zip"
   },
   "repository": {
     "type": "git",
