@@ -16,7 +16,7 @@
     "develop": {
       "user": "ec2-user",
       "host": "18.188.125.1",
-      "ref": "origin/develop",
+      "ref": "origin/01-all-done",
       "repo": "git@bitbucket.org:dmarciukaitiscds/pets-api.git",
       "path": "/home/ec2-user/",
       "post-deploy":
