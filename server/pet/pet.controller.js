@@ -1,5 +1,4 @@
 const Pet = require('./pet.model');
-const AdoptCtl = require('../adopt/adopt.controller');
 /**
  * Load pet and append to req.
  */
@@ -88,30 +87,4 @@ function remove(req, res, next) {
     .catch(e => next(e));
 }
 
-/**
- * Adopt a pet
- * @property {string} req.body.message - The message of the adopt.
- * @property {string} req.body.contact - The contact of the adopt.
- * @returns {Pet}
- *
- */
-function adoptPet(req, res, next) {
-  const pet = req.pet;
-
-  const data = req.body;
-
-  AdoptCtl.createMethod(data, (err, adopt) => {
-    if (err) {
-      next(err);
-    } else {
-      pet.adopt = adopt._id;
-
-      pet
-        .save()
-        .then(savedPet => res.json(savedPet))
-        .catch(e => next(e));
-    }
-  });
-}
-
-module.exports = { load, get, create, update, list, remove, adoptPet };
+module.exports = { load, get, create, update, list, remove };

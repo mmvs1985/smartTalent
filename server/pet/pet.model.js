@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
 
-const Schema = mongoose.Schema;
-
 /**
  * Pet Schema
  */
@@ -40,10 +38,6 @@ const PetSchema = new mongoose.Schema({
       type: String
     }
   ],
-  adopt: {
-    type: Schema.Types.ObjectId,
-    ref: 'Adopt'
-  },
   createdAt: {
     type: Date,
     default: Date.now
