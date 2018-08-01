@@ -48,16 +48,12 @@ module.exports = {
   // POST /api/adopt
   createAdopt: {
     body: {
-      pet: Joi.string().required(),
       contact: Joi.string().required()
     }
   },
 
   // UPDATE /api/adopt/:userId
   updateAdopt: {
-    body: {
-      pet: Joi.string().required()
-    },
     params: {
       adoptId: Joi.string()
         .hex()

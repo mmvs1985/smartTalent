@@ -3,16 +3,10 @@ const mongoose = require('mongoose');
 const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
 
-const Schema = mongoose.Schema;
 /**
  * Adopt Schema
  */
 const AdoptSchema = new mongoose.Schema({
-  pet: {
-    type: Schema.Types.ObjectId,
-    ref: 'Pet',
-    required: true
-  },
   message: {
     type: String
   },
@@ -43,26 +37,26 @@ AdoptSchema.method({});
  */
 AdoptSchema.statics = {
   /**
-   * Get pet
-   * @param {ObjectId} id - The objectId of pet.
+   * Get adopt
+   * @param {ObjectId} id - The objectId of adopt.
    * @returns {Promise<Adopt, APIError>}
    */
   get(id) {
     return this.findById(id)
       .exec()
-      .then((pet) => {
-        if (pet) {
-          return pet;
+      .then((adopt) => {
+        if (adopt) {
+          return adopt;
         }
-        const err = new APIError('No such pet exists!', httpStatus.NOT_FOUND);
+        const err = new APIError('No such adopt exists!', httpStatus.NOT_FOUND);
         return Promise.reject(err);
       });
   },
 
   /**
-   * List pets in descending order of 'createdAt' timestamp.
-   * @param {number} skip - Number of pets to be skipped.
-   * @param {number} limit - Limit number of pets to be returned.
+   * List adopts in descending order of 'createdAt' timestamp.
+   * @param {number} skip - Number of adopts to be skipped.
+   * @param {number} limit - Limit number of adopts to be returned.
    * @returns {Promise<Adopt[]>}
    */
   list({ skip = 0, limit = 50 } = {}) {

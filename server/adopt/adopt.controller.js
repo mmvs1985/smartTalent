@@ -22,28 +22,38 @@ function get(req, res) {
 
 /**
  * Create new adopt
- * @property {string} req.body.adoptname - The adoptname of adopt.
- * @property {string} req.body.mobileNumber - The mobileNumber of adopt.
+ * @property {string} req.body.message - The message of adopt.
+ * @property {string} req.body.contact - The contact of adopt.
  * @returns {Adopt}
  */
 function create(req, res, next) {
   const adoptToCreate = req.body;
-  const adopt = new Adopt(adoptToCreate);
+  createMethod(adoptToCreate, (err, adopt) => {
+    if (err) {
+      next(err);
+    } else {
+      res.json(adopt);
+    }
+  });
+}
+
+function createMethod(data, next) {
+  const adopt = new Adopt(data);
 
   adopt
     .save()
-    .then(savedAdopt => res.json(savedAdopt))
+    .then(savedAdopt => next(null, savedAdopt))
     .catch(e => next(e));
 }
 
 /**
  * Update existing adopt
- * @property {string} req.body.adoptname - The adoptname of adopt.
- * @property {string} req.body.mobileNumber - The mobileNumber of adopt.
+ * @property {string} req.body.message - The message of adopt.
+ * @property {string} req.body.contact - The contact of adopt.
  * @returns {Adopt}
  */
 function update(req, res, next) {
-  const adopt = Object.assign({}, req.adopt, req.body);
+  const adopt = Object.assign(req.adopt, req.body);
 
   adopt
     .save()
@@ -76,4 +86,4 @@ function remove(req, res, next) {
     .catch(e => next(e));
 }
 
-module.exports = { load, get, create, update, list, remove };
+module.exports = { load, get, create, update, list, remove, createMethod };

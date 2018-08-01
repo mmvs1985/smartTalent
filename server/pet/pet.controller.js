@@ -1,5 +1,5 @@
 const Pet = require('./pet.model');
-
+const AdoptCtl = require('../adopt/adopt.controller');
 /**
  * Load pet and append to req.
  */
@@ -22,8 +22,14 @@ function get(req, res) {
 
 /**
  * Create new pet
- * @property {string} req.body.petname - The petname of pet.
- * @property {string} req.body.mobileNumber - The mobileNumber of pet.
+ * @property {string} req.body.name - The name of pet.
+ * @property {string} req.body.age - The age of pet.
+ * @property {string} req.body.size - The size of pet.
+ * @property {string} req.body.color - The color of pet.
+ * @property {string} req.body.sex - The sex of pet.
+ * @property {string} req.body.description - The description of pet.
+ * @property {Array<string>} req.body.photos - The photos of pet.
+ * @property {string} req.body.profilePicture - The profilePicture of pet.
  * @returns {Pet}
  */
 function create(req, res, next) {
@@ -38,12 +44,18 @@ function create(req, res, next) {
 
 /**
  * Update existing pet
- * @property {string} req.body.petname - The petname of pet.
- * @property {string} req.body.mobileNumber - The mobileNumber of pet.
+ * @property {string} req.body.name - The name of pet.
+ * @property {string} req.body.age - The age of pet.
+ * @property {string} req.body.size - The size of pet.
+ * @property {string} req.body.color - The color of pet.
+ * @property {string} req.body.sex - The sex of pet.
+ * @property {string} req.body.description - The description of pet.
+ * @property {Array<string>} req.body.photos - The photos of pet.
+ * @property {string} req.body.profilePicture - The profilePicture of pet.
  * @returns {Pet}
  */
 function update(req, res, next) {
-  const pet = Object.assign({}, req.pet, req.body);
+  const pet = Object.assign(req.pet, req.body);
 
   pet
     .save()
@@ -76,4 +88,30 @@ function remove(req, res, next) {
     .catch(e => next(e));
 }
 
-module.exports = { load, get, create, update, list, remove };
+/**
+ * Adopt a pet
+ * @property {string} req.body.message - The message of the adopt.
+ * @property {string} req.body.contact - The contact of the adopt.
+ * @returns {Pet}
+ *
+ */
+function adoptPet(req, res, next) {
+  const pet = req.pet;
+
+  const data = req.body;
+
+  AdoptCtl.createMethod(data, (err, adopt) => {
+    if (err) {
+      next(err);
+    } else {
+      pet.adopt = adopt._id;
+
+      pet
+        .save()
+        .then(savedPet => res.json(savedPet))
+        .catch(e => next(e));
+    }
+  });
+}
+
+module.exports = { load, get, create, update, list, remove, adoptPet };

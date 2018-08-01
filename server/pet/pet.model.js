@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
 
+const Schema = mongoose.Schema;
+
 /**
  * Pet Schema
  */
@@ -38,6 +40,10 @@ const PetSchema = new mongoose.Schema({
       type: String
     }
   ],
+  adopt: {
+    type: Schema.Types.ObjectId,
+    ref: 'Adopt'
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -67,6 +73,7 @@ PetSchema.statics = {
    */
   get(id) {
     return this.findById(id)
+      .populate('adopt')
       .exec()
       .then((pet) => {
         if (pet) {
@@ -85,6 +92,7 @@ PetSchema.statics = {
    */
   list({ skip = 0, limit = 50 } = {}) {
     return this.find()
+      .populate('adopt')
       .sort({ createdAt: -1 })
       .skip(+skip)
       .limit(+limit)
