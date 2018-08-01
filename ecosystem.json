@@ -23,6 +23,7 @@
       "env": {
         "NODE_ENV": "development",
         "PORT": 3001,
+        "JWT_SECRET": "0a6b944d-d2fb-46fc-a85e-0295c986cd9f",
         "LOG_LEVEL": "info",
         "BASE_PATH": "localhost",
         "MONGO_HOST": "mongodb://admin:admin123@ds159631.mlab.com:59631/pets-api",
