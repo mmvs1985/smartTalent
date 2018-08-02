@@ -44,6 +44,12 @@ const PetSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: 'Adopt'
   },
+  friendlyWith: [
+    {
+      type: String,
+      enum: ['dogs', 'cats', 'kids']
+    }
+  ],
   createdAt: {
     type: Date,
     default: Date.now

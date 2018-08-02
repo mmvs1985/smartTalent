@@ -39,7 +39,9 @@ function create(req, res, next) {
   pet
     .save()
     .then(savedPet => res.json(savedPet))
-    .catch(e => next(e));
+    .catch((e) => {
+      next(e);
+    });
 }
 
 /**
