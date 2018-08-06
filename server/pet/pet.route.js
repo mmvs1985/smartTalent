@@ -6,8 +6,8 @@ const petCtrl = require('./pet.controller');
 const router = express.Router(); // eslint-disable-line new-cap
 
 router
-  .route('/adopt/:petId')
-  /** POST /api/pets/adopt - Adopt a pet */
+  .route('/:petId/adopt')
+  /** POST /api/pets/:petId/adopt - Adopt a pet */
   .post(validate(paramValidation.createAdopt), petCtrl.adoptPet);
 
 router

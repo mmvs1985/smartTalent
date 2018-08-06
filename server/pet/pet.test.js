@@ -131,14 +131,14 @@ describe('## Pet APIs', () => {
     });
   });
 
-  describe('# POST /api/pets/adopt/:id', () => {
+  describe('# POST /api/pets/:id/adopt', () => {
     it('should adopt a pet', (done) => {
       const data = {
         message: 'Quiero Adoptarlo!',
         contact: 'ana@email.com'
       };
       request(app)
-        .post(`/api/pets/adopt/${pet._id}`)
+        .post(`/api/pets/${pet._id}/adopt`)
         .send(data)
         .expect(httpStatus.OK)
         .then((res) => {
