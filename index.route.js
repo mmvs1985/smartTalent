@@ -1,5 +1,6 @@
 const express = require('express');
 const petRoutes = require('./server/pet/pet.route');
+const adoptRoutes = require('./server/adopt/adopt.route');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -7,6 +8,9 @@ const router = express.Router(); // eslint-disable-line new-cap
 
 /** GET /health-check - Check service health */
 router.get('/health-check', (req, res) => res.send('OK'));
+
+// mount adopt routes at /adopts
+router.use('/adopts', adoptRoutes);
 
 // mount pet routes at /pet
 router.use('/pets', petRoutes);
